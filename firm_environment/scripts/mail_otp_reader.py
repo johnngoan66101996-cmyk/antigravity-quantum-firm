@@ -37,8 +37,13 @@ def get_latest_code(sender_filter: Optional[str] = None) -> Dict[str, Any]:
             msg = email.message_from_bytes(raw_email)
             
             sender = msg.get("From", "")
-            if sender_filter and sender_filter.lower() not in sender.lower():
-                continue
+            # Фильтр по отправителям Газпром ID / Rutube
+            if sender_filter:
+                if sender_filter.lower() not in sender.lower():
+                    continue
+            else:
+                if not any(trusted in sender.lower() for trusted in ["gid.ru", "rutube", "pass.media"]):
+                    continue
                 
             subject, encoding = decode_header(msg["Subject"])[0]
             if isinstance(subject, bytes):
@@ -49,19 +54,34 @@ def get_latest_code(sender_filter: Optional[str] = None) -> Dict[str, Any]:
             if msg.is_multipart():
                 for part in msg.walk():
                     content_type = part.get_content_type()
-                    if content_type == "text/plain":
+                    if content_type in ["text/plain", "text/html"]:
                         payload = part.get_payload(decode=True)
                         if payload:
-                            body = payload.decode(part.get_content_charset() or "utf-8", errors="ignore")
-                            break
+                            body += payload.decode(part.get_content_charset() or "utf-8", errors="ignore") + "\n"
             else:
                 payload = msg.get_payload(decode=True)
                 if payload:
                     body = payload.decode(msg.get_content_charset() or "utf-8", errors="ignore")
                     
-            # Ищем 4-8 значный код цифр
-            code_matches = re.findall(r"\b(\d{4,8})\b", body or subject)
-            extracted_code = code_matches[0] if code_matches else None
+            # Очищаем от стилей, скриптов и тегов HTML
+            clean_body = re.sub(r"<style[^>]*>.*?</style>", "", body, flags=re.DOTALL | re.IGNORECASE)
+            clean_body = re.sub(r"<script[^>]*>.*?</script>", "", clean_body, flags=re.DOTALL | re.IGNORECASE)
+            clean_body = re.sub(r"<[^>]+>", "\n", clean_body)
+            clean_body = re.sub(r"&[a-z]+;", " ", clean_body)
+            
+            # 1. Поиск кода на отдельной строке (как в письме Rutube: "\n7242\n")
+            isolated_codes = re.findall(r"^\s*(\d{4,6})\s*$", clean_body, flags=re.MULTILINE)
+            if isolated_codes:
+                extracted_code = isolated_codes[0]
+            else:
+                # 2. Поиск кода рядом с ключевыми словами
+                context_match = re.search(r"(?:код|rutube|аккаунт|вход)[\s\S]{1,60}?\b(\d{4,6})\b", clean_body, flags=re.IGNORECASE)
+                if context_match:
+                    extracted_code = context_match.group(1)
+                else:
+                    # 3. Общий поиск 4-значных или 6-значных кодов
+                    code_matches = re.findall(r"\b(\d{4}|\d{6})\b", clean_body)
+                    extracted_code = code_matches[0] if code_matches else None
             
             mail.logout()
             return {
