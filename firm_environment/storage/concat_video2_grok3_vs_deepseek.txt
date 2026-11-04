@@ -1,0 +1,7 @@
+file 'C:\Users\sugat\OneDrive\Desktop\Единый регламент ИИ-Архитектора и Оператора Монетиза\firm_environment\storage\collage_video2_grok.png'
+duration 20.0
+file 'C:\Users\sugat\.gemini\antigravity\brain\10390318-f604-48df-94d5-044e9e9ab9a0\deepseek_r1_quantum_core_1793777429106.jpg'
+duration 20.0
+file 'C:\Users\sugat\.gemini\antigravity\brain\10390318-f604-48df-94d5-044e9e9ab9a0\quantum_trading_desk_shenzhen_1793777483857.jpg'
+duration 20.0
+file 'C:\Users\sugat\.gemini\antigravity\brain\10390318-f604-48df-94d5-044e9e9ab9a0\quantum_trading_desk_shenzhen_1793777483857.jpg'

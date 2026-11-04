@@ -1,0 +1,7 @@
+file 'C:\Users\sugat\OneDrive\Desktop\Единый регламент ИИ-Архитектора и Оператора Монетиза\firm_environment\storage\v2_frame1.png'
+duration 22
+file 'C:\Users\sugat\OneDrive\Desktop\Единый регламент ИИ-Архитектора и Оператора Монетиза\firm_environment\storage\v2_frame2.png'
+duration 17
+file 'C:\Users\sugat\OneDrive\Desktop\Единый регламент ИИ-Архитектора и Оператора Монетиза\firm_environment\storage\v2_frame3.png'
+duration 17
+file 'C:\Users\sugat\OneDrive\Desktop\Единый регламент ИИ-Архитектора и Оператора Монетиза\firm_environment\storage\v2_frame3.png'

@@ -1,0 +1,7 @@
+file 'C:\Users\sugat\OneDrive\Desktop\Единый регламент ИИ-Архитектора и Оператора Монетиза\firm_environment\storage\collage_video1_claude.png'
+duration 20.0
+file 'C:\Users\sugat\.gemini\antigravity\brain\10390318-f604-48df-94d5-044e9e9ab9a0\quantum_ai_developer_workstation_1793777437480.jpg'
+duration 20.0
+file 'C:\Users\sugat\.gemini\antigravity\brain\10390318-f604-48df-94d5-044e9e9ab9a0\quantum_ai_outro_branding_1793777483308.jpg'
+duration 20.0
+file 'C:\Users\sugat\.gemini\antigravity\brain\10390318-f604-48df-94d5-044e9e9ab9a0\quantum_ai_outro_branding_1793777483308.jpg'
